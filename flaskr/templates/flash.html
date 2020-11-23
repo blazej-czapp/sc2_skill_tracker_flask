@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Skill tracker</title>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <font color='red'>
+        <p>Error:</p>
+        {% for message in messages %}
+          {{ message }}<br>
+        {% endfor %}
+    </font>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}

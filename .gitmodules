@@ -1,0 +1,3 @@
+[submodule "sc2_skill_tracker"]
+	path = sc2_skill_tracker
+	url = git@github.com:blazej-czapp/sc2_skill_tracker.git
