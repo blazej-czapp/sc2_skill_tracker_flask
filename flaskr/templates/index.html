@@ -3,12 +3,16 @@
 <script>
 function autoSubmit() {
     document.getElementById("form").submit();
+    document.getElementById("form").style.display = "none";
+    document.getElementById("working").style.display = "block";
 };
 </script>
     <h1>orastem's StarCraft II Zerg skill tracker</h1>
     <p>Upload a replay file:</p>
-    <form id="form" method=post action="/upload_replay" enctype=multipart/form-data>
+    <form id=form method=post action="/upload_replay" enctype=multipart/form-data>
         <input style="margin-bottom:1em;" type="file" name="replay_file" accept=".SC2Replay" onchange='autoSubmit()'><br>
         <!-- <input type="submit" value="Upload"> -->
     </form>
+    <p id=working style="display:none">Working...</p>
+
 {% endblock %}
