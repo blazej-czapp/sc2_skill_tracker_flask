@@ -1,0 +1,27 @@
+# sc2_uwsgi.ini file - this should be symlinkd from /etc/uwsgi/vassals/
+[uwsgi]
+
+# Flask-related settings
+# the base directory (full path)
+chdir           = <PROJECT DIR>
+# Flask's wsgi file
+module          = flaskr.wsgi
+# the virtualenv (abs path)
+home            = <HOME DIR>/.pyenv/versions/skill_tracker
+
+# THIS IS IMPORTANT! uWSGI can't seem to find packages installed in this virtualenv otherwise
+pythonpath = <HOME DIR>/.pyenv/versions/skill_tracker/lib/python3.8/site-packages
+
+# process-related settings
+# master
+master          = true
+# maximum number of worker processes
+processes       = 1
+# the socket
+socket          = <>
+
+chown-socket    = www-data:www-data
+# clear environment on exit
+vacuum          = true
+
+daemonize = /var/log/uwsgi/sc2.uwsgi.log
