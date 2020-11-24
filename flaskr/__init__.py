@@ -40,6 +40,11 @@ def create_app(test_config=None):
 
         replay_file = request.files['replay_file']
 
+        cutoff = None
+        if 'until_check' in request.form:
+            assert 'until_text' in request.form
+            cutoff = skill_tracker.parse_cutoff(request.form['until_text'])
+
         if not replay_file.filename:
             flash('Missing replay file')
             return redirect(url_for('index'))
@@ -49,7 +54,7 @@ def create_app(test_config=None):
             return redirect(url_for('index'))
 
         try:
-            figs = skill_tracker.generate_plots(replay_file)
+            figs = skill_tracker.generate_plots(replay_file, cutoff)
         except Exception as e:
             flash(str(e))
             return redirect(url_for('index'))

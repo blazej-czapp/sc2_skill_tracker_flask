@@ -68,14 +68,20 @@
         document.getElementById("form").submit();
         document.getElementById("form").style.display = "none";
         document.getElementById("spinner").style.display = "block";
-    };
-</script>
+    }
 
+    function untilCheckChanged() {
+        const enabled = document.getElementById("until_check").checked;
+        document.getElementById("until_text").disabled = !enabled;
+    }
+</script>
 
     <h1>orastem's StarCraft II Zerg skill tracker</h1>
     <p>Upload a replay file:</p>
     <form id=form method=post action="/upload_replay" enctype=multipart/form-data>
         <input style="margin-bottom:1em;" type="file" name="replay_file" accept=".SC2Replay" onchange='autoSubmit()'><br>
+        <input type=checkbox name=until_check id=until_check onchange='untilCheckChanged()'>until:
+        <input type=text name=until_text id=until_text placeholder="mm:ss" size=5 disabled>
         <!-- <input type="submit" value="Upload"> -->
     </form>
     <div class="large progress" id=spinner style="display:none"><div>Loading…</div></div>
