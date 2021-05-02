@@ -67,6 +67,7 @@
     function autoSubmit() {
         document.getElementById("form").submit();
         document.getElementById("form").style.display = "none";
+        document.getElementById("upload-caption").style.display = "none";
         document.getElementById("spinner").style.display = "block";
     }
 
@@ -77,7 +78,7 @@
 </script>
 
     <h1>orastem's StarCraft II Zerg skill tracker</h1>
-    <p>Upload a replay file:</p>
+    <p id="upload-caption">Upload a replay file:</p>
     <form id=form method=post action="/upload_replay" enctype=multipart/form-data>
         <input style="margin-bottom:1em;" type="file" name="replay_file" accept=".SC2Replay" onchange='autoSubmit()'><br>
         <input type=checkbox name=until_check id=until_check onchange='untilCheckChanged()'>until:
