@@ -75,6 +75,18 @@
         const enabled = document.getElementById("until_check").checked;
         document.getElementById("until_text").disabled = !enabled;
     }
+
+    // Before navigating away to show the plots, restore the landing page UI so
+    // that after pressing 'back' in the browser we're ready to consume another replay.
+    // Apparently not the cleanest API, but works well here
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event
+    window.addEventListener('beforeunload', function(event) {
+        const form = document.getElementById("form");
+        form.reset();
+        form.style.display = "block";
+        document.getElementById("upload-caption").style.display = "block";
+        document.getElementById("spinner").style.display = "none";
+    });
 </script>
 
     <h1>orastem's StarCraft II Zerg skill tracker</h1>
