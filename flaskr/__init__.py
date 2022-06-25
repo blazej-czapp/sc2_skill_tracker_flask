@@ -62,7 +62,7 @@ def create_app(test_config=None):
             flash(str(e))
             return redirect(url_for('index'))
 
-        response = ""
+        response = "<!DOCTYPE html>"
         for fig in figs:
             # Save it to a temporary buffer.
             buf = BytesIO()

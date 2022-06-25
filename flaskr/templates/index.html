@@ -52,7 +52,7 @@
 	background: #777;
 }
 
-	.progress > div:before {
+.progress > div:before {
 	transform: rotate(-90deg);
 	background: #999;
 }
@@ -61,10 +61,13 @@
 	transform: rotate(-135deg);
 	background: #bbb;
 }
+
 </style>
 
 <script>
     function autoSubmit() {
+        // submit() appears to restore visibility of the form, so we need to call it first,
+        // and then hide it and show the spinner, no idea why...
         document.getElementById("form").submit();
         document.getElementById("form").style.display = "none";
         document.getElementById("upload-caption").style.display = "none";
@@ -90,11 +93,11 @@
 </script>
 
     <h1>orastem's StarCraft II Zerg skill tracker</h1>
-    <p id="upload-caption">Upload a replay file:</p>
     <form id=form method=post action="/upload_replay" enctype=multipart/form-data>
-        <input style="margin-bottom:1em;" type="file" name="replay_file" accept=".SC2Replay" onchange='autoSubmit()'><br>
-        <input type=checkbox name=until_check id=until_check onchange='untilCheckChanged()'>until:
+        <input type=checkbox name=until_check id=until_check onchange='untilCheckChanged()'>plot until:
         <input type=text name=until_text id=until_text placeholder="mm:ss" size=5 disabled>
+        <p id="upload-caption">Upload a replay file:</p>
+        <input style="margin-bottom:1em;" type="file" name="replay_file" accept=".SC2Replay" onchange='autoSubmit()'>
         <!-- <input type="submit" value="Upload"> -->
     </form>
     <div class="large progress" id=spinner style="display:none"><div>Loading…</div></div>
