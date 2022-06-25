@@ -6,7 +6,10 @@ from io import BytesIO
 from flask import Flask, render_template, flash, request, redirect, url_for
 
 sys.path.insert(0, os.path.abspath('./sc2_skill_tracker')) # git submodule with the tracker library
-from sc2_skill_tracker import skill_tracker
+                                                           # path relative to where flask is run from
+                                                           # not this file specifically
+from sc2_skill_tracker import plotter
+from sc2_skill_tracker.replay_helpers import parse_timestamp
 
 def create_app(test_config=None):
     # create and configure the app
@@ -43,7 +46,7 @@ def create_app(test_config=None):
         cutoff = None
         if 'until_check' in request.form:
             assert 'until_text' in request.form
-            cutoff = skill_tracker.parse_cutoff(request.form['until_text'])
+            cutoff = parse_timestamp(request.form['until_text'])
 
         if not replay_file.filename:
             flash('Missing replay file')
@@ -54,7 +57,7 @@ def create_app(test_config=None):
             return redirect(url_for('index'))
 
         try:
-            figs = skill_tracker.generate_plots(replay_file, cutoff)
+            figs = plotter.generate_plots(replay_file, cutoff)
         except Exception as e:
             flash(str(e))
             return redirect(url_for('index'))
