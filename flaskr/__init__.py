@@ -46,7 +46,11 @@ def create_app(test_config=None):
         cutoff = None
         if 'until_check' in request.form:
             assert 'until_text' in request.form
-            cutoff = parse_timestamp(request.form['until_text'])
+            try:
+                cutoff = parse_timestamp(request.form['until_text'])
+            except:
+                flash("Couldn't parse the timestamp")
+                return redirect(url_for('index'))
 
         if not replay_file.filename:
             flash('Missing replay file')
